@@ -10,9 +10,7 @@ import (
 func InitSpinner(message, stopMessage, stopIcon string, timing int16, animationOffset uint8) *yacspin.Spinner {
 	var animationIndex int8
 
-	if animationOffset <= 90 {
-		animationIndex = int8(animationOffset)
-	} else if animationOffset < 0 || animationOffset > 90 {
+	if animationOffset < 0 || animationOffset > 90 {
 		animationIndex = int8(59)
 	}
 
