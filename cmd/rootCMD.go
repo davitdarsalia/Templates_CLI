@@ -11,17 +11,6 @@ var rootCmd = &cobra.Command{
 	Use:   "templateGen",
 	Short: "File Template Generator",
 	Long:  "Generates A Code Template For Various Frameworks",
-	//Run:   runRootCMD,
-}
-
-func runRootCMD(cmd *cobra.Command, args []string) {
-	//mainArg := args[0]
-
-	//err := reactNativeGen.GenerateRNTemplate(mainArg)
-	//
-	//if err != nil {
-	//	handleStdErr(err)
-	//}
 }
 
 func ExecuteRootCMD() {
