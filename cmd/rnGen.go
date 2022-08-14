@@ -1,18 +1,16 @@
 package cmd
 
 import (
-	"fmt"
+	"github.com/davitdarsalia/CLI_Commands/constants"
 	"github.com/spf13/cobra"
 )
 
-// rnGenCmd represents the rnGen command
 var rnGenCmd = &cobra.Command{
-	Use:   "rnGen",
+	Use:   constants.RnGen,
 	Short: "React Native Template Generator",
-	Long:  "Generates React Native Folder-File Template For Component",
+	Long:  "Generates React Native Folder && File Template For Component",
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()
-		fmt.Println("RnGen Called")
 	},
 }
 
