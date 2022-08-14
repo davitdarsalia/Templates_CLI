@@ -3,7 +3,7 @@ package reactNativeGen
 import (
 	"fmt"
 	"github.com/davitdarsalia/CLI_Commands/constants"
-	"github.com/davitdarsalia/CLI_Commands/spinner"
+	"github.com/davitdarsalia/CLI_Commands/pkg/spinner"
 	"log"
 	"os"
 	"time"
