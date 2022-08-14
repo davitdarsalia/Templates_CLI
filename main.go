@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-	//reactNativeGen.GenerateRNTemplate("CalendarPicker")
 	cmd.ExecuteRootCMD()
 }
 

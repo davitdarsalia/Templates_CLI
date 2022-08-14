@@ -3,8 +3,10 @@ package reactNativeGen
 import (
 	"fmt"
 	"github.com/davitdarsalia/CLI_Commands/constants"
+	"github.com/davitdarsalia/CLI_Commands/spinner"
 	"log"
 	"os"
+	"time"
 )
 
 func generateOverallFile(basePath string) (string, error) {
@@ -56,6 +58,10 @@ func generateFiles(dir, fileName, template string) error {
 }
 
 func GenerateRNTemplate(dirName string, template string) error {
+	spinner := spinner.InitSpinner("Preparing Files", "Template Generated", "✅", 11, 150)
+
+	spinner.Start()
+
 	dirName, err := generateOverallFile(dirName)
 	if err != nil {
 		log.Println(err)
@@ -69,7 +75,11 @@ func GenerateRNTemplate(dirName string, template string) error {
 		return err
 	}
 
-	log.Printf("%s Template Generated Successfully", template)
+	time.Sleep(1 * time.Second)
+
+	defer func() {
+		spinner.Stop()
+	}()
 
 	return nil
 }

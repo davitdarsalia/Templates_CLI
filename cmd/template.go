@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"github.com/davitdarsalia/CLI_Commands/constants"
-	"github.com/davitdarsalia/CLI_Commands/reactNativeGen"
+	"github.com/davitdarsalia/CLI_Commands/pkg/reactNativeGen"
 	"log"
 	"os"
 
