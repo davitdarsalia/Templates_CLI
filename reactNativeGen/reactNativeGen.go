@@ -18,12 +18,25 @@ func generateOverallFile(basePath string) (string, error) {
 	return basePath, nil
 }
 
-func generateFiles(dir, fileName string) error {
-	componentTemplate := fmt.Sprintf("import React from 'react'\nimport { View , Button, Text, TextInput, FlatList, TouchableOpacity, StyleSheet} from 'react-native'\n\ninterface %sProps {\n\n}\n\nexport const %s: React.FC<%sProps> = ({}) => {\n\treturn(\n\t\t<View>\n\n\t\t</View>\n\t)\n}", fileName, fileName, fileName)
+func generateFiles(dir, fileName, template string) error {
+	var extension string
+	var componentTemplate string
+
+	switch template {
+	case constants.TypeScript:
+		extension = constants.TypescriptExtension
+		componentTemplate = fmt.Sprintf("import React from 'react'\nimport { View , Button, Text, TextInput, FlatList, TouchableOpacity, StyleSheet} from 'react-native'\n\ninterface %sProps {\n\n}\n\nexport const %s: React.FC<%sProps> = ({}) => {\n\treturn(\n\t\t<View>\n\n\t\t</View>\n\t)\n}", fileName, fileName, fileName)
+	case constants.JavaScript:
+		extension = constants.JavaScriptExtension
+		componentTemplate = fmt.Sprintf("import React from 'react'\nimport { View , Button, Text, TextInput, FlatList, TouchableOpacity, StyleSheet} from 'react-native'\n\nexport const %s = ({}) => {\n\treturn(\n\t\t<View>\n\n\t\t</View>\n\t)\n}", fileName)
+	default:
+		extension = constants.TypescriptExtension
+	}
+
 	styleTemplate := fmt.Sprintf("import {Dimensions, StyleSheet} from 'react-native'\n\nconst {width, height} = Dimensions\n\nexport const %sStyles = StyleSheet.create({\n\n})", fileName)
 
-	componentFileNameTemplate := fmt.Sprintf("%s/%s.tsx", dir, fileName)
-	stylesFileNameTemplate := fmt.Sprintf("%s/style.tsx", dir)
+	componentFileNameTemplate := fmt.Sprintf("%s/%s.%s", dir, fileName, extension)
+	stylesFileNameTemplate := fmt.Sprintf("%s/style.%s", dir, extension)
 
 	// Component File
 	componentFile, err := os.Create(componentFileNameTemplate)
@@ -42,19 +55,21 @@ func generateFiles(dir, fileName string) error {
 	return nil
 }
 
-func GenerateRNTemplate(dirName string) error {
+func GenerateRNTemplate(dirName string, template string) error {
 	dirName, err := generateOverallFile(dirName)
 	if err != nil {
 		log.Println(err)
 		return err
 	}
 
-	err = generateFiles(dirName, dirName)
+	err = generateFiles(dirName, dirName, template)
 
 	if err != nil {
 		log.Println(err)
 		return err
 	}
+
+	log.Printf("%s Template Generated Successfully", template)
 
 	return nil
 }
