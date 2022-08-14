@@ -8,7 +8,6 @@ import (
 
 var rootCmd = &cobra.Command{
 	// TODO - Change Command Name To Something Useful
-	Use:   "templateGen",
 	Short: "File Template Generator",
 	Long:  "Generates A Code Template For Various Frameworks",
 }
