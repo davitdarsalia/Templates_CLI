@@ -1,15 +1,28 @@
 package constants
 
 const (
-	RnGen             = "rnGen"
-	Template          = "template"
+	RnGen = "rnGen"
+
 	TemplateShortHand = "t"
 	TemplateFlag      = "template"
-	C                 = "c"
-	CShorthand        = "c"
+
+	// CFlag - Requires Component Name
+	CFlag      = "c"
+	CShorthand = "c"
+
+	SubExtensionFlag      = "SubExtension"
+	SubExtensionShorthand = "s"
+
+	HelpFlag          = "help"
+	HelpFlagShorthand = "h"
 )
 
 const (
-	TemplateDescription = "Choose Template Extension"
-	CDescription        = "Choose A Name For A Component"
+	TemplateDescription = `Choose Template Extension: "Ts" | "Js"`
+
+	CDescription = "Choose A Name For A Component"
+
+	SubExtensionDescription = `Choose SubExtension: "Component" | "Screen" | "Primitive"`
+
+	HelpDescription = "Help Command"
 )

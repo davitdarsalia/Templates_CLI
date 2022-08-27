@@ -10,6 +10,8 @@ import (
 var (
 	templateVariant string
 	componentName   string
+	subExtension    string
+	help            string
 )
 
 // rnGenCmd - Basic Command For Rn Template.
@@ -21,20 +23,30 @@ var rnGenCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		switch templateVariant {
 		case constants.TypeScript:
-			reactNativeGen.GenerateRNTemplate("CalendarPicker", constants.TypeScript)
+			reactNativeGen.GenerateRNTemplate(componentName, constants.TypeScript)
 		case constants.JavaScript:
-			reactNativeGen.GenerateRNTemplate("CalendarPicker", constants.JavaScript)
+			reactNativeGen.GenerateRNTemplate(componentName, constants.JavaScript)
 		}
 	},
 }
 
 func init() {
-	rnGenCmd.Flags().StringVarP(&templateVariant, constants.Template, constants.TemplateShortHand, "", constants.TemplateDescription)
-	rnGenCmd.Flags().StringVarP(&componentName, constants.C, constants.CShorthand, "", constants.CDescription)
+	if help == "true" {
+		rnGenCmd.Flags().StringVarP(&help, constants.HelpFlag, constants.HelpFlagShorthand, "", constants.HelpDescription)
+	} else {
+		rnGenCmd.Flags().StringVarP(&templateVariant, constants.TemplateFlag, constants.TemplateShortHand, "", constants.TemplateDescription)
+		rnGenCmd.Flags().StringVarP(&componentName, constants.CFlag, constants.CShorthand, "", constants.CDescription)
+		rnGenCmd.Flags().StringVarP(&subExtension, constants.SubExtensionFlag, constants.SubExtensionShorthand, "", constants.SubExtensionDescription)
+	}
 
 	if err := rnGenCmd.MarkFlagRequired(constants.TemplateFlag); err != nil {
 		handleStdErr(err)
 		os.Exit(1)
+	}
+
+	if err := rnGenCmd.MarkFlagRequired(constants.CFlag); err != nil {
+		handleStdErr(err)
+		return
 	}
 
 	rootCmd.AddCommand(rnGenCmd)

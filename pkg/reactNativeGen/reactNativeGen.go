@@ -48,7 +48,7 @@ func generateFiles(dir, fileName, template string) error {
 	styleTemplate := fmt.Sprintf("import {Dimensions, StyleSheet} from 'react-native'\n\nconst {width, height} = Dimensions\n\nexport const %sStyles = StyleSheet.create({\n\n})", fileName)
 
 	componentFileNameTemplate := fmt.Sprintf("%s/%s.%s", dir, fileName, extension)
-	stylesFileNameTemplate := fmt.Sprintf("%s/style.%s", dir, extension)
+	stylesFileNameTemplate := fmt.Sprintf("%s/%sStyles.%s", dir, fileName, extension)
 
 	// Component File
 	componentFile, err := os.Create(componentFileNameTemplate)
