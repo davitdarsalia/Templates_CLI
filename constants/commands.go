@@ -4,10 +4,10 @@ const (
 	RnGen = "rnGen"
 
 	TemplateShortHand = "t"
-	TemplateFlag      = "template"
+	TemplateFlag      = "Template"
 
 	// CFlag - Requires Component Name
-	CFlag      = "c"
+	CFlag      = "C"
 	CShorthand = "c"
 
 	SubExtensionFlag      = "SubExtension"
