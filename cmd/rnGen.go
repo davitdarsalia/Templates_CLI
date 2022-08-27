@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"errors"
 	"github.com/davitdarsalia/CLI_Commands/constants"
 	"github.com/davitdarsalia/CLI_Commands/pkg/reactNativeGen"
 	"github.com/spf13/cobra"
@@ -21,12 +22,22 @@ var rnGenCmd = &cobra.Command{
 	Short: "React Native Template Generator",
 	Long:  "Generates React Native Folder && File Template For Component",
 	Run: func(cmd *cobra.Command, args []string) {
+		if len(componentName) < 3 {
+			handleStdErr(errors.New("invalid Component Name. Choose Proper One"))
+			os.Exit(1)
+		}
+
 		switch templateVariant {
 		case constants.TypeScript:
-			reactNativeGen.GenerateRNTemplate(componentName, constants.TypeScript)
+			reactNativeGen.GenerateRNTemplate(componentName, constants.TypeScript, subExtension)
 		case constants.JavaScript:
-			reactNativeGen.GenerateRNTemplate(componentName, constants.JavaScript)
+			reactNativeGen.GenerateRNTemplate(componentName, constants.JavaScript, subExtension)
+		default:
+			// TODO - Implement Colored Output
+			handleStdErr(errors.New("invalid Template"))
+			os.Exit(1)
 		}
+
 	},
 }
 

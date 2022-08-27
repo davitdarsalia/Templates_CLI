@@ -6,6 +6,7 @@ import (
 	"github.com/davitdarsalia/CLI_Commands/utils/spinner"
 	"log"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -20,9 +21,14 @@ func generateOverallFile(basePath string) (string, error) {
 	return basePath, nil
 }
 
-func generateFiles(dir, fileName, template string) error {
+func generateFiles(dir, fileName, template string, subExtension string) error {
 	var extension string
 	var componentTemplate string
+	var component string
+
+	if subExtension == "" || subExtension == " " {
+		subExtension = ""
+	}
 
 	spinner := spinner.InitSpinner("Generating Dir", "Dir Generated Successfully", "📁", 550, 11)
 
@@ -48,10 +54,18 @@ func generateFiles(dir, fileName, template string) error {
 	styleTemplate := fmt.Sprintf("import {Dimensions, StyleSheet} from 'react-native'\n\nconst {width, height} = Dimensions\n\nexport const %sStyles = StyleSheet.create({\n\n})", fileName)
 
 	componentFileNameTemplate := fmt.Sprintf("%s/%s.%s", dir, fileName, extension)
+	componentFileNameTemplateWithSubExtension := fmt.Sprintf("%s/%s.%s.%s", dir, fileName, subExtension, extension)
+
 	stylesFileNameTemplate := fmt.Sprintf("%s/%sStyles.%s", dir, fileName, extension)
 
+	if subExtension == " " || subExtension == "" {
+		component = componentFileNameTemplate
+	} else {
+		component = componentFileNameTemplateWithSubExtension
+	}
+
 	// Component File
-	componentFile, err := os.Create(componentFileNameTemplate)
+	componentFile, err := os.Create(component)
 	// Styles File
 	stylesFile, err := os.Create(stylesFileNameTemplate)
 
@@ -67,7 +81,7 @@ func generateFiles(dir, fileName, template string) error {
 	return nil
 }
 
-func GenerateRNTemplate(dirName string, template string) error {
+func GenerateRNTemplate(dirName string, template string, subExtension string) error {
 	spinner := spinner.InitSpinner("Generating Template", `Template Generated Successfully
 
              k;double sin()
@@ -101,7 +115,7 @@ in(B),t=c*h*g-f*        e;int x=40+30*D*
 		return err
 	}
 
-	err = generateFiles(dirName, dirName, template)
+	err = generateFiles(dirName, dirName, template, strings.ToLower(subExtension))
 
 	if err != nil {
 		log.Println(err)
